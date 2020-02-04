@@ -1,65 +1,54 @@
-'use strict';
+'use strict'
 
-import React, { Component } from 'react';
+import React, {Component} from 'react'
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native'
 
 import {
-  ViroARScene,
-  ViroDirectionalLight,
-  ViroBox,
-  ViroConstants,
-  ViroARTrackingTargets,
-  ViroMaterials,
-  ViroText,
-  ViroImage,
-  ViroFlexView,
-  ViroARImageMarker,
-  ViroARObjectMarker,
-  ViroAmbientLight,
-  ViroARPlane,
   ViroAnimatedImage,
   ViroAnimations,
+  ViroARImageMarker,
+  ViroARScene,
+  ViroARTrackingTargets,
+  ViroConstants,
+  ViroFlexView,
+  ViroImage,
+  ViroMaterials,
   ViroNode,
-  Viro3DObject,
-  ViroQuad
-} from 'react-viro';
+  ViroText,
+} from 'react-viro'
 
 export default class BusinessCard extends Component {
 
   state = {
     isTracking: false,
     initialized: false,
-    runAnimation: false
+    runAnimation: false,
   }
 
-  getNoTrackingUI(){
-    const { isTracking, initialized } = this.state;
+  getNoTrackingUI() {
+    const {isTracking, initialized} = this.state
     return (
       <ViroText text={
         initialized ? 'Initializing AR...'
-          : "No Tracking"
+          : 'No Tracking'
       }/>
     )
   }
 
 
-
   getARScene() {
     return (
       <ViroNode>
-        <ViroARImageMarker target={"businessCard"}
-                           onAnchorFound={
-                             () => this.setState({
-                                                   runAnimation: true
-                                                 })}
+        <ViroARImageMarker target={'businessCard'}
+                           onAnchorFound={() => this.setState({runAnimation: true})}
         >
           <ViroNode key="card">
             <ViroNode
               opacity={0} position={[0, -0.02, 0]}
               animation={{
-                name:'animateImage',
-                run: this.state.runAnimation
+                name: 'animateImage',
+                run: this.state.runAnimation,
               }}
             >
               <ViroFlexView
@@ -79,13 +68,13 @@ export default class BusinessCard extends Component {
                   />
                   <ViroText
                     textClipMode="None"
-                    text="Timofei Shchepkin"
+                    text="Bradley Heath"
                     scale={[.015, .015, .015]}
                     style={styles.textStyle}
                   />
                 </ViroFlexView>
                 <ViroFlexView
-                  onTouch={() => alert("twitter")}
+                  onTouch={() => alert('twitter')}
                   style={styles.subText}
                 >
                   <ViroText
@@ -93,7 +82,7 @@ export default class BusinessCard extends Component {
                     height={0.01}
                     textAlign="left"
                     textClipMode="None"
-                    text="@fosteman"
+                    text="@extouring"
                     scale={[.01, .01, .01]}
                     style={styles.textStyle}
                   />
@@ -108,11 +97,11 @@ export default class BusinessCard extends Component {
             </ViroNode>
             <ViroNode opacity={0} position={[0, 0, 0]}
                       animation={{
-                        name:'animateWeb',
-                        run: this.state.runAnimation
+                        name: 'animateWeb',
+                        run: this.state.runAnimation,
                       }}
             >
-              <ViroText text="fosteman.info"
+              <ViroText text="extouring.travel"
                         rotation={[-90, 0, 0]}
                         scale={[.01, .01, .01]}
                         style={styles.textStyle}
@@ -126,10 +115,10 @@ export default class BusinessCard extends Component {
 
   render() {
     return (
-      <ViroARScene onTrackingUpdated={this._onInitialized} >
-        { this.state.isTracking ? this.getNoTrackingUI() : this.getARScene() }
+      <ViroARScene onTrackingUpdated={this._onInitialized}>
+        {this.state.isTracking ? this.getNoTrackingUI() : this.getARScene()}
       </ViroARScene>
-    );
+    )
   }
 
   _onInitialized = (state, reason) => {
@@ -152,55 +141,55 @@ var styles = StyleSheet.create({
                                    fontWeight: 'bold',
                                  },
                                  card: {
-                                   flexDirection: 'column'
+                                   flexDirection: 'column',
                                  },
                                  cardWrapper: {
                                    flexDirection: 'row',
                                    alignItems: 'flex-start',
                                    padding: 0.001,
-                                   flex: .5
+                                   flex: .5,
                                  },
                                  subText: {
                                    flexDirection: 'column',
                                    alignItems: 'flex-start',
                                    justifyContent: 'flex-start',
-                                   flex: .5
-                                 }
-                               });
+                                   flex: .5,
+                                 },
+                               })
 
 ViroARTrackingTargets.createTargets({
-                                      "businessCard" : {
-                                        source : require('./res/heart.png'),
-                                        orientation : "Up",
-                                        physicalWidth : 0.05 // real world width in meters
-                                      }
-                                    });
+                                      'businessCard': {
+                                        source: require('./res/extouring-target.JPG'),
+                                        orientation: 'Up',
+                                        physicalWidth: 0.05,
+                                      },
+                                    })
 
 ViroMaterials.createMaterials({
                                 imagePlaceholder: {
-                                  diffuseColor: "rgba(255,255,255,1)"
+                                  diffuseColor: 'rgba(255,255,255,1)',
                                 },
                                 quad: {
-                                  diffuseColor: "rgba(0,0,0,0.5)"
-                                }
-                              });
+                                  diffuseColor: 'rgba(0,0,0,0.5)',
+                                },
+                              })
 
 ViroAnimations.registerAnimations({
-                                    animateImage:{
-                                      properties:{
+                                    animateImage: {
+                                      properties: {
                                         positionX: 0.05,
-                                        opacity: 1.0
+                                        opacity: 1.0,
                                       },
-                                      easing:"Bounce",
-                                      duration: 500
+                                      easing: 'Bounce',
+                                      duration: 500,
                                     },
                                     animateWeb: {
                                       properties: {
                                         positionZ: 0.02,
                                         opacity: 1.0,
                                       },
-                                      easing:"Bounce",
-                                      duration: 500
-                                    }
-                                  });
+                                      easing: 'Bounce',
+                                      duration: 500,
+                                    },
+                                  })
 
