@@ -35,7 +35,144 @@ export default class BusinessCard extends Component {
   getARScene() {
     return (
       <ViroNode>
-        {targets.map(target => this.mark(target))}
+        <ViroARImageMarker target={'In a heartbeat'}
+                           onAnchorFound={() => this.setState({runAnimation: true})}
+        >
+          <ViroNode key="card">
+            <ViroNode
+              opacity={0} position={[0, -0.02, 0]}
+              animation={{
+                name: 'animateImage',
+                run: this.state.runAnimation,
+              }}
+            >
+              <ViroFlexView
+                rotation={[-90, 0, 0]}
+                height={0.25}
+                width={0.40}
+                style={styles.card}
+              >
+                <ViroFlexView
+                  style={styles.cardWrapper}
+                >
+
+                  <ViroText
+                    textClipMode="None"
+                    text="In a heartbeat"
+                    scale={[.015, .015, .015]}
+                    style={styles.textStyle}
+                  />
+                </ViroFlexView>
+                <ViroFlexView
+                  onTouch={() => alert('twitter')}
+                  style={styles.subText}
+                >
+                  <ViroAnimatedImage
+                    height={0.20}
+                    width={0.20}
+                    loop={true}
+                    source={require('./res/tweet.gif')}
+                  />
+                  <ViroText
+                    width={0.10}
+                    height={0.40}
+                    textAlign="left"
+                    textClipMode="None"
+                    text={"Timofei Shchepkin"}
+                    scale={[.01, .01, .01]}
+                    style={styles.textStyle}
+                  />
+
+                </ViroFlexView>
+              </ViroFlexView>
+            </ViroNode>
+            <ViroNode opacity={0} position={[0, 0, 0]}
+                      animation={{
+                        name: 'animateWeb',
+                        run: this.state.runAnimation,
+                      }}
+            >
+              <ViroText
+                width={0.30}
+                height={0.60}
+                textAlign="left"
+                textClipMode="None"
+                text={"Love Peace & Harmony"}
+                scale={[.01, .01, .01]}
+                style={styles.textStyle}
+              />
+            </ViroNode>
+          </ViroNode>
+        </ViroARImageMarker>
+        <ViroARImageMarker target={'Fire'}
+                           onAnchorFound={() => this.setState({runAnimation: true})}
+        >
+          <ViroNode key="card">
+            <ViroNode
+              opacity={0} position={[0, -0.02, 0]}
+              animation={{
+                name: 'animateImage',
+                run: this.state.runAnimation,
+              }}
+            >
+              <ViroFlexView
+                rotation={[-90, 0, 0]}
+                height={0.25}
+                width={0.40}
+                style={styles.card}
+              >
+                <ViroFlexView
+                  style={styles.cardWrapper}
+                >
+                  <ViroImage
+                    height={0.15}
+                    width={0.15}
+                    style={styles.image}
+                    source={require('./res/Fire.png')}
+                  />
+                  <ViroText
+                    textClipMode="None"
+                    text="Fire"
+                    scale={[.015, .015, .015]}
+                    style={styles.textStyle}
+                  />
+                </ViroFlexView>
+                <ViroFlexView
+                  onTouch={() => alert('twitter')}
+                  style={styles.subText}
+                >
+                  <ViroText
+                    width={0.01}
+                    height={0.01}
+                    textAlign="left"
+                    textClipMode="None"
+                    text={'Saeideh B.T.'}
+                    scale={[.01, .01, .01]}
+                    style={styles.textStyle}
+                  />
+                  <ViroAnimatedImage
+                    height={0.01}
+                    width={0.01}
+                    loop={true}
+                    source={require('./res/tweet.gif')}
+                  />
+                </ViroFlexView>
+              </ViroFlexView>
+            </ViroNode>
+            <ViroNode opacity={0} position={[0, 0, 0]}
+                      animation={{
+                        name: 'animateWeb',
+                        run: this.state.runAnimation,
+                      }}
+            >
+              <ViroText text="She can appreciate fire once she felt ice"
+                        rotation={[-90, 0, 0]}
+                        scale={[.01, .01, .01]}
+                        style={styles.textStyle}
+              />
+            </ViroNode>
+          </ViroNode>
+        </ViroARImageMarker>
       </ViroNode>
     )
   }
@@ -53,7 +190,7 @@ var styles = StyleSheet.create({
                                  textStyle: {
                                    flex: .5,
                                    fontFamily: 'Roboto',
-                                   fontSize: 30,
+                                   fontSize: 256,
                                    color: '#ffffff',
                                    textAlignVertical: 'top',
                                    textAlign: 'left',
@@ -75,98 +212,7 @@ var styles = StyleSheet.create({
                                    flex: .5,
                                  },
                                })
-function mark(target) {
-  return (
-    <ViroARImageMarker target={target.name}
-                       onAnchorFound={() => this.setState({runAnimation: true})}
-    >
-      <ViroNode key="card">
-        <ViroNode
-          opacity={0} position={[0, -0.02, 0]}
-          animation={{
-            name: 'animateImage',
-            run: this.state.runAnimation,
-          }}
-        >
-          <ViroFlexView
-            rotation={[-90, 0, 0]}
-            height={0.03}
-            width={0.05}
-            style={styles.card}
-          >
-            <ViroFlexView
-              style={styles.cardWrapper}
-            >
-              <ViroImage
-                height={0.015}
-                width={0.015}
-                style={styles.image}
-                source={require(target.source)}
-              />
-              <ViroText
-                textClipMode="None"
-                text="target.title"
-                scale={[.015, .015, .015]}
-                style={styles.textStyle}
-              />
-            </ViroFlexView>
-            <ViroFlexView
-              onTouch={() => alert('twitter')}
-              style={styles.subText}
-            >
-              <ViroText
-                width={0.01}
-                height={0.01}
-                textAlign="left"
-                textClipMode="None"
-                text={target.connectionString}
-                scale={[.01, .01, .01]}
-                style={styles.textStyle}
-              />
-              <ViroAnimatedImage
-                height={0.01}
-                width={0.01}
-                loop={true}
-                source={require('./res/tweet.gif')}
-              />
-            </ViroFlexView>
-          </ViroFlexView>
-        </ViroNode>
-        <ViroNode opacity={0} position={[0, 0, 0]}
-                  animation={{
-                    name: 'animateWeb',
-                    run: this.state.runAnimation,
-                  }}
-        >
-          <ViroText text="extouring.travel"
-                    rotation={[-90, 0, 0]}
-                    scale={[.01, .01, .01]}
-                    style={styles.textStyle}
-          />
-        </ViroNode>
-      </ViroNode>
-    </ViroARImageMarker>
-  )
-}
-const targets = [
-  Target('extouring', './res/extouring-target.JPG', 'Call me maybe XX - BigB', 0.005, 'Bradley Heath'),
-  Target('In a heartbeat', './res/heart.png', 'Love Peace & Harmony', 0.5588, "Salwa Abdelsamie"),
-  Target('Fire', './res/Fire.png', "One can appreciate Fire in case he once froze to bones", 0.4572, "Saeideh B.T."),
-]
-class Target {
-  constructor(name, source, title, physicalWidth, connectionString) {
-    this.name = name
-    this.source = source
-    this.title = title
-    this.physicalWidth = physicalWidth
-    this.connectionString = connectionString
-  }
-  name: String //target's defined name
-  title: String
-  connectionString: String // twitter username
-  // avatar: String // img filename
-  physicalWidth: Number
-}
+
 ViroARTrackingTargets.createTargets({
                                       'In a heartbeat': {
                                         source: require('./res/heart.png'),
@@ -197,7 +243,7 @@ ViroMaterials.createMaterials({
 ViroAnimations.registerAnimations({
                                     animateImage: {
                                       properties: {
-                                        positionX: 0.08,
+                                        positionX: 0.3,
                                         opacity: 1.0,
                                       },
                                       easing: 'Bounce',
